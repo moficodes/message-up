@@ -1,0 +1,14 @@
+{
+  "name": "retrieve-data",
+  "version": "1.0.0",
+  "description": "retrieve data from cloudant",
+  "main": "retrieve.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mofi",
+  "license": "MIT",
+  "dependencies": {
+    "@cloudant/cloudant": "^2.4.0"
+  }
+}

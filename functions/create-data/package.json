@@ -1,0 +1,14 @@
+{
+  "name": "create-data",
+  "version": "1.0.0",
+  "description": "Create Data via twilio app",
+  "main": "create.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mofi",
+  "license": "MIT",
+  "dependencies": {
+    "@cloudant/cloudant": "^2.4.0"
+  }
+}
