@@ -127,6 +127,38 @@ And get the following
 }
 ```
 
+So far the examples we have seen did not include any external dependency. 
+
+If the function requires any external dependency, we can no longer just simply create a function, we will need to packahge the dependency with it. 
+
+http://jamesthom.as/blog/2016/11/28/npm-modules-in-openwhisk/
+This blog covers how to do it. 
+
+Basic Idea is, we create a npm project. Have the depencdency in the `package.json` then zip up all the files. 
+
+Steps are as follows-
+1. In a folder create a js file with the code. I named mine `index.js`
+2. From terminal `npm init` to initialize a npm module.
+3. Go through the defaults
+4. `npm install --save <dependency>` (for our code it was `left-pad`)
+5. `npm install`
+6. `zip -r <name>.zip *` (for our code <name> was `dependency-action`)
+7. `wsk action create <action> --kind nodejs:default <name>.zip` (for our code I am naming the action dependency-action)
+8. Finally we can invoke it normally
+```
+wsk action invoke --blocking --result dependency-action --param lines "[\"and now\", \"for something completely\", \"different\" ]"
+```
+And we get the data back as expected
+```json
+{
+    "padded": [
+        ".......................and now",
+        "......for something completely",
+        ".....................different"
+    ]
+}
+```
+
 Now we know enough to be dangerous. 
 
-[Next: Create Data Function](./Create-Data.md)
+[Next: Message UP Overview](./Message-Up.md)
