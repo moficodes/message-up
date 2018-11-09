@@ -50,3 +50,13 @@ function retrieve(params) {
 exports.main = retrieve;
 ```
 
+We need to find the url and api key for our react app to call this functions. 
+
+1. Go to the retrieve-data function
+2. Go to endpoints
+3. Make note of the url
+4. Click on API-KEY
+5. Copy the Key
+6. The key is a : separated value, First part of it is the username, second is password. Make a note of that. We will need that for out react app.
+
+[Step 4 : React App](./React-App.md)

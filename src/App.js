@@ -16,51 +16,55 @@ class App extends Component {
       data: {}
     }
     this.startTimer = this.startTimer.bind(this)
+    this.loadData = this.loadData.bind(this);
   }
   startTimer() {
-    console.log(secret);
-    console.log(secret.DATA_RETRIEVE_URL);
     this.timer = setInterval(() => {
-      var options = {
-        url: secret.DATA_RETRIEVE_URL,
-        method: 'POST',
-        auth: {
-          'user': secret.API_USER,
-          'pass': secret.API_PASS
-        }
-      };
-
-      var that = this;
-
-      request(options, function (err, response, body) {
-        if (err) {
-          console.log("error getting data");
-        } else {
-          var val = JSON.parse(body);
-          console.log(val.response.result.data)
-          var arr = val.response.result.data;
-
-          arr.forEach(element => {
-            console.log(that);
-            if (element.from in that.state.data) {
-              var temp = that.state.data[element.from];
-              if (!_.isEqual(temp, element)) {
-                temp = { ...temp,
-                  ...element
-                }
-                that.state.data[element.from] = temp;
-              }
-            } else {
-              that.state.data[element.from] = element;
-            }
-          });
-        }
-      });
-      this.setState({...that.state});
+      this.loadData();
     }, 3000);
   }
 
+  loadData() {
+    var options = {
+      url: secret.DATA_RETRIEVE_URL,
+      method: 'POST',
+      auth: {
+        'user': secret.API_USER,
+        'pass': secret.API_PASS
+      }
+    };
+
+    var that = this;
+
+    request(options, function (err, response, body) {
+      if (err) {
+        console.log("error getting data");
+      } else {
+        var val = JSON.parse(body);
+        console.log(val.response.result.data)
+        var arr = val.response.result.data;
+
+        arr.forEach(element => {
+          console.log(that);
+          if (element.from in that.state.data) {
+            var temp = that.state.data[element.from];
+            if (!_.isEqual(temp, element)) {
+              temp = { ...temp,
+                ...element
+              }
+              that.state.data[element.from] = temp;
+            }
+          } else {
+            that.state.data[element.from] = element;
+          }
+        });
+      }
+    });
+    this.setState({...that.state});
+  }
+
   componentWillMount() {
+    this.loadData();
     this.startTimer();
   }
 

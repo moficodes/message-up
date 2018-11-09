@@ -9,15 +9,29 @@ Steps
 2. `cd <appname>`
 3. `npm install --save @material-ui/core`
 We will use material component to make our app look a little better. 
-4. `npm start`
-5. App will run in http://localhost:3000
+4. 
+> If you look at the last import statement, you will see `import secret from './secret.json';`. But you wont see the file in the code repository. There is a `secret.template.json`. You need to find this data to and make your own
+`secret.json` file. 
+
+Add a file called `secret.json` in the `src` directory.
+5. Fill in the data from url, user and password from previous step.
+Will look something like this
+```json
+{
+  "DATA_RETRIEVE_URL": "XXXXX",
+  "API_USER": "XXXXX",
+  "API_PASS": "XXXXXXXXX"
+}
+```
+Replace the x with the real data from your function API key.
+6. `npm start`
+7. App will run in http://localhost:3000
 
 We will change the boilerplate code now.
 Stop the app from terminal, by using `ctrl-c` 
 
-Replace the `App.js` code with the following
 Code can also be found here [CODE](./src/App.js)
-
+Replace the `App.js` code with the following
 ### App.js
 ```javascript
 import React, {
@@ -38,51 +52,55 @@ class App extends Component {
       data: {}
     }
     this.startTimer = this.startTimer.bind(this)
+    this.loadData = this.loadData.bind(this);
   }
   startTimer() {
-    console.log(secret);
-    console.log(secret.DATA_RETRIEVE_URL);
     this.timer = setInterval(() => {
-      var options = {
-        url: secret.DATA_RETRIEVE_URL,
-        method: 'POST',
-        auth: {
-          'user': secret.API_USER,
-          'pass': secret.API_PASS
-        }
-      };
-
-      var that = this;
-
-      request(options, function (err, response, body) {
-        if (err) {
-          console.log("error getting data");
-        } else {
-          var val = JSON.parse(body);
-          console.log(val.response.result.data)
-          var arr = val.response.result.data;
-
-          arr.forEach(element => {
-            console.log(that);
-            if (element.from in that.state.data) {
-              var temp = that.state.data[element.from];
-              if (!_.isEqual(temp, element)) {
-                temp = { ...temp,
-                  ...element
-                }
-                that.state.data[element.from] = temp;
-              }
-            } else {
-              that.state.data[element.from] = element;
-            }
-          });
-        }
-      });
-      this.setState({...that.state});
+      this.loadData();
     }, 3000);
   }
 
+  loadData() {
+    var options = {
+      url: secret.DATA_RETRIEVE_URL,
+      method: 'POST',
+      auth: {
+        'user': secret.API_USER,
+        'pass': secret.API_PASS
+      }
+    };
+
+    var that = this;
+
+    request(options, function (err, response, body) {
+      if (err) {
+        console.log("error getting data");
+      } else {
+        var val = JSON.parse(body);
+        console.log(val.response.result.data)
+        var arr = val.response.result.data;
+
+        arr.forEach(element => {
+          console.log(that);
+          if (element.from in that.state.data) {
+            var temp = that.state.data[element.from];
+            if (!_.isEqual(temp, element)) {
+              temp = { ...temp,
+                ...element
+              }
+              that.state.data[element.from] = temp;
+            }
+          } else {
+            that.state.data[element.from] = element;
+          }
+        });
+      }
+    });
+    this.setState({...that.state});
+  }
+
   componentWillMount() {
+    this.loadData();
     this.startTimer();
   }
 
@@ -135,4 +153,19 @@ class App extends Component {
 
   export default App;
   ```
-If you look at the last import statement, you will see `import secret from './secret.json';`. But you wont see the file in the code repository. There is a `secret.template.json`. You need to find this data to and make your own `secret.json` file. 
+
+Thats all for the App. 
+If you can now send text to your twilio number and it will show in the web app.
+The text has to be in the following format
+>Name: any name
+Hobby: any hobby
+
+If you dont send in this form it wont work and fail silently.
+
+Also you can send a picture. 
+
+Everytime you send a new picture the old one would get overridden.
+
+[Step 4 : Optional Steps (Docker and Kubernetes)](./Docker.md)
+
+

@@ -9,8 +9,22 @@ Here is the step by step guide
 5. `npm install`
 6. Write our function code.
 7. `zip -r <name>.zip *`
-8. `wsk action create <action> --kind nodejs:default <name>.zip` 
-`<action>` is the name of the action you give. I named mine `create-data`
+8. Provision a `cloudant-db` by finding `cloudant` from the catalog in ibmcloud
+![cloudant](./img/cloudant.png)
+9. Give it a new name, for auth method select `use both legacy credentials and IAM`, choose the `lite` plan and hit create.
+![Provision](./img/provision.png)
+10. Once the service is provisioned, Go to service credentials.
+![Service Cred](./img/service-cred.png)
+11. Click on new Credentials.
+12. Give it a name
+![New Cred](./img/new-cred.png)
+13. Click on `view credentials`
+![view](./img/view-cred.png)
+14. You can ignore everything else. Just take note of the `username` and `password`
+![user-pass](./img/user-pass.png)
+15. We will set these as default param in our functions.
+16. `wsk action create <action> --kind nodejs:default <name>.zip` 
+`<action> -p username "<cloudant-user>" -p password "<clouandt-password>"` is the name of the action you give. I named mine `create-data`. 
 
 Here is the code
 Its also available here [CODE](./functions/create-data)
@@ -71,5 +85,23 @@ function create(params) {
 
 exports.main = create;
 ```
+
+## Make it available
+The action is created. But Twilio cant access it still.
+
+1. From your cloud console open the side menu. You can open the side menu by clicking the hamburger.
+![Hamburger](./img/Hamburger.png)
+
+2. Select `Functions`
+![Functions](./img/Functions.png)
+
+3. Go to `Actions`
+![Actions](./img/Actions.png)
+4. From the list of actions find `create-data` function and click it.
+![create-data](./img/create-data.png)
+5. Go to `Endpoints`
+![Endpoints](./img/endpoint.png)
+6. Check enable as webaction and save. And make note of the public url. We will need that for twilio.
+![Enable](./img/enable-webactions.png)
 
 [Step 2 : Twilio Setup](./Twilio.md)
