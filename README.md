@@ -1,44 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Message UP
 
-## Available Scripts
+This project is a demo application made with react as front end and openwhisk serverless functions and cloudant database as a backend.
 
-In the project directory, you can run:
+## Technlogy Used
+* [ReactJS](https://reactjs.org/)
+* [Openwhisk](https://openwhisk.apache.org/)
+* [Cloudand Database](https://www.ibm.com/cloud/cloudant)
+* [NodeJS](https://nodejs.org/en/)
+* [Twilio](https://www.twilio.com/)
+* [Docker](https://www.docker.com/)
+* [Kubernetes](https://kubernetes.io/)
+* [IBM Cloud Functions](https://console.bluemix.net/openwhisk/)
+* [Container Service](https://www.ibm.com/cloud/container-service)
 
-### `npm start`
+## Prereq
+To be able to follow along or complete this tutorial/workshop you need the following. 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Openwhisk
+* [Openwhish Local Installation](https://openwhisk.apache.org/documentation.html#openwhisk_deployment) for testing 
+  * For setting up openwhisk local you need 
+    * [docker](https://docs.docker.com/docker-for-mac/)
+    * [docker-compose](https://docs.docker.com/docker-for-mac/)
+#### OR 
+* I would be using IBM Cloud Functions that uses Openwhisk.
+  * Sign up for IBM Cloud https://ibm.biz/BdYan6 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Prorgramming Language
+For this demo I am using **Node**. But with openwhisk you can write your functions in Node, Swift, Go, Python, Java, Ruby, Php and in the unlikely case none of the above is your language, you can create a docker image of your function and openwhisk will run that. So its safe to say openwhisk can run it all. 
 
-### `npm test`
+### Cloudant Database
+Lite version of CLoudant available from IBM Cloud.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### React 
+For front end I am using React. This will be a very simple use of react. We wont go much deep into the use of reactjs in this workshop.
 
-### `npm run build`
+## Getting Started
+What is serverless really? 
+Serverless aren't really without servers, its just that you wont have to worry about servers.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Openwhisk is a opensource serverless implementation under apache foundation. IBM has a managed version of openwhisk which we will make use of in this workshop. 
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+###For a more detailed tutorial workshop in Openwhisk
+* https://github.com/jthomas/openwhisk-workshops/tree/master/bootcamp
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+We will quickly go over the basics here. But make use of the resource above.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Functions Basics](./Basics.md)
