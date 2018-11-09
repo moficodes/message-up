@@ -33,3 +33,5 @@ Give it any name and and for use case select anything, I just went with mixed. (
 Check the proces inbound messages box. And paste the URL from our function here. Now Everytime there is a message sent to this number, a call to our function will be made. 
 
 Save and We are done.
+
+[Step 3 : Retrieve Data Function](./Retrieve-Data.md)
