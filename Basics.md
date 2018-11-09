@@ -83,4 +83,50 @@ With luck on our side we should see the following.
 ```
 >Pro tip : You can shorten your flags -b : --blocking and -p : --param
 
+This was a very simple example, lets try to make a web request. 
 
+We will make use of this https://jsonplaceholder.typicode.com/todos/1 website. They give us a free and open api, albeit useless data. It returns the data in json format. 
+
+The Code is [Here](./functions/functions-basics/node/webrequest.js)
+
+```javascript
+var requests = require('request')
+function main(params){
+  var url = 'https://jsonplaceholder.typicode.com/todos/1';
+  return new Promise(function(resolve, reject){
+    requests.get(url, function(err, resp, body){
+      if(err){
+        reject({err: "Can not get data"});
+      } else{
+        resolve(JSON.parse(body));
+      }
+    })
+  });
+}
+```
+
+In this file we wait on a webrequest to complete. Web requests are async, so we make use of `promise` `resolve` to handle this. We could have also done this using `async await`. 
+
+We create this action
+```bash
+wsk action create webrequest webrequest.js
+```
+
+Then invoke it
+```bash
+wsk action invoke -r webrequest
+```
+
+And get the following
+```json
+{
+    "completed": false,
+    "id": 1,
+    "title": "delectus aut autem",
+    "userId": 1
+}
+```
+
+Now we know enough to be dangerous. 
+
+[Next: Twilio Setup](./Twilio.md)
