@@ -13,4 +13,4 @@ Here is the step by step guide
 `<action>` is the name of the action you give. I named mine `create-data`
 
 Here is the code
-Its also available here [CODE](./function/create-data)
+Its also available here [CODE](./functions/create-data)
