@@ -21,7 +21,7 @@ class App extends Component {
   startTimer() {
     this.timer = setInterval(() => {
       this.loadData();
-    }, 3000);
+    }, 1000);
   }
 
   loadData() {
@@ -41,11 +41,9 @@ class App extends Component {
         console.log("error getting data");
       } else {
         var val = JSON.parse(body);
-        console.log(val.response.result.data)
         var arr = val.response.result.data;
 
         arr.forEach(element => {
-          console.log(that);
           if (element.from in that.state.data) {
             var temp = that.state.data[element.from];
             if (!_.isEqual(temp, element)) {

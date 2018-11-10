@@ -29,7 +29,7 @@ Here is the step by step guide
 Here is the code
 Its also available here [CODE](./functions/create-data)
 
-###create.js
+### create.js
 ```javascript
 var Cloudant = require('@cloudant/cloudant');
 
